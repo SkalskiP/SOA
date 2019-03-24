@@ -1,0 +1,68 @@
+body, html {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+body {
+    position: fixed;
+}
+
+.BooksMainView {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+
+    background-color: #F0F0F0;
+}
+
+.BooksNavView {
+    font-family: 'Exo 2', sans-serif;
+    color: white;
+}
+
+.BooksBodyView {
+    width: 100vw;
+    flex: 1 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.BooksTableView {
+    flex: 1 0 auto;
+    align-self: stretch;
+    overflow-y: scroll;
+}
+
+.BooksSidebarView {
+    width: 300px;
+    align-self: stretch;
+
+    padding: 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+
+    font-family: 'Exo 2', sans-serif;
+    color: white;
+    background-color: #ababab;
+}

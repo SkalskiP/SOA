@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h:head>
+
+   </h:head>
+
+   <h:body>
+      <h1>
+         Check if you are lucky in the lottery draw
+      </h1>
+      <h:form>
+         <h:outputLabel>
+            Enter your personal data:
+         </h:outputLabel> <br/>
+
+         Pesel <h:inputText/> <br/>
+         Name <h:inputText/> <br/>
+         Age <h:inputText/> <br/>
+
+         <h:commandButton value="Send" action="#(Lottery.draw)"></h:commandButton>
+      </h:form>
+   </h:body>
+</html>
