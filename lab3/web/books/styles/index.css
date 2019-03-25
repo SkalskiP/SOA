@@ -59,10 +59,14 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-content: center;
 
     font-family: 'Exo 2', sans-serif;
     color: white;
     background-color: #ababab;
+}
+
+.SummaryEntry {
+    margin: 5px 0;
 }

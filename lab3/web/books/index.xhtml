@@ -35,46 +35,68 @@
         </nav>
         <div class="BooksBodyView">
             <div class="BooksTableView">
-                <h:dataTable styleClass="table table-striped" id="books-table" value="#{books.books}" var="book">
-                    <h:column>
-                        <f:facet name="header">Number</f:facet>
-                        #{book.id + 1}.
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Title</f:facet>
-                        #{book.title}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Author</f:facet>
-                        #{book.author}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Category</f:facet>
-                        #{book.category}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Price</f:facet>
-                        #{book.price}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Currency</f:facet>
-                        #{book.currency}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Pages</f:facet>
-                        #{book.pages}
-                    </h:column>
-                    <h:column>
-                        <div class="form-check">
-                            <f:facet name="header">Choosen</f:facet>
-                            <h:selectBooleanCheckbox styleClass="form-check-input" value="#{books.checked[book.id]}"/>
-                        </div>
-                    </h:column>
-                </h:dataTable>
+                <h:form id="books-form">
+                    <h:dataTable styleClass="table table-striped" id="books-table" value="#{books.booksToDisplay}" var="book">
+                        <h:column>
+                            <f:facet name="header">Number</f:facet>
+                            #{book.id + 1}.
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Title</f:facet>
+                            #{book.title}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Author</f:facet>
+                            #{book.author}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Category</f:facet>
+                            #{book.category}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                            #{book.price}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Currency</f:facet>
+                            #{book.currency}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Pages</f:facet>
+                            #{book.pages}
+                        </h:column>
+                        <h:column>
+                            <div class="form-check">
+                                <f:facet name="header">Choosen</f:facet>
+                                <h:selectBooleanCheckbox styleClass="form-check-input" value="#{books.booksSelectionStatus[book.id]}">
+                                    <f:ajax listener="#{books.checkoutSelected}" render="totalPrice totalCount"/>
+                                </h:selectBooleanCheckbox>
+                            </div>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
             </div>
             <div class="BooksSidebarView">
-                <h4>Filters</h4>
-
+                <div>
+                    <h:form id="filter-form">
+                        <c:forEach items="#{books.filtersLabels}" var="label">
+                            <div class="form-group">
+                                <h:outputLabel for="#{label.key}" value="#{label.value}"/>
+                                <h:inputText styleClass="form-control" id="#{label.key}" value="#{books.selectedFilters[label.key]}">
+                                    <f:ajax event="keyup" render="books-form:books-table" listener="#{books.filterData}" />
+                                </h:inputText>
+                            </div>
+                        </c:forEach>
+                    </h:form>
+                </div>
+                <div>
+                    <div class="SummaryEntry">
+                        Total price: <h:outputLabel id="totalPrice" value="#{books.totalPrice}"/>
+                    </div>
+                    <div class="SummaryEntry">
+                        Selected books count: <h:outputLabel id="totalCount" value="#{books.selectedBooksCount}"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

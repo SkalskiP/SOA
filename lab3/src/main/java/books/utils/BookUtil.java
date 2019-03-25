@@ -52,4 +52,12 @@ public class BookUtil {
 
         return books;
     }
+
+    public static void reIndex(ArrayList<Book> books) {
+        int counter = 0;
+        for (Book book: books) {
+            book.setId(counter);
+            counter++;
+        }
+    }
 }
