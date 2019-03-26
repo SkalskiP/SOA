@@ -67,6 +67,10 @@ body {
     background-color: #ababab;
 }
 
+.BookTable {
+    font-size: 12px !important;
+}
+
 .SummaryEntry {
     margin: 5px 0;
 }

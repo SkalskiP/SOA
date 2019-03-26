@@ -1,47 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xml:lang="en" lang="en">
 <h:head>
-    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet"/>
-    <link rel= "stylesheet" href= "styles/index.css"/>
-
+    <title>Survey</title>
     <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"></link>
+            crossorigin="anonymous"/>
+
+    <link rel= "stylesheet" href= "styles/index.css"/>
 
     <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
+
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
+
     <script
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </h:head>
-
 <h:body>
-    <h:form id="base-questions-section">
-        <c:forEach items="#{survey.baseQuestionsSection}" var="label">
-            <div class="form-group">
-                <h:outputLabel value="#{label.content}"/>
+    <div class="SurveyMainView">
+        <nav class="navbar navbar-dark bg-dark SurveyMainTopBar">
+            <a class="navbar-brand">Survey</a>
+        </nav>
+        <div class="SurveyWrapper">
+            <h:form id="survey-form">
+                <c:forEach items="#{survey.generalInputs}" var="input">
+                    <c:choose>
+                        <c:when test='#{input.key != "sex"}'>
+                            <div class="form-group">
+                                <h:outputLabel for="#{input.key}" value="#{input.value}"/>
+                                <h:inputText styleClass="form-control" id="#{input.key}" value="#{survey.basicInputs[input.key]}" disabled='#{survey.isSurveyAccepted == "true"}'/>
+                            </div>
+                            <c:choose>
+                                <c:when test="#{survey.errors.get(input.key).length() > 0}">
+                                    <p style="color: red">
+                                        <h:outputLabel value="#{survey.errors.get(input.key)}"/>
+                                    </p>
+                                </c:when>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <h:outputLabel for="#{input.key}" value="#{input.value}"/>
+                            <div class="form-group">
+                                <h:selectOneMenu styleClass="form-control" value="#{survey.basicInputs[input.key]}" disabled='#{survey.isSurveyAccepted == "true"}'>
+                                    <f:selectItems  value="#{survey.sexes}"/>
+                                    <f:ajax listener="#{survey.updateSex}" render="survey-form:additional-inputs"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <c:choose>
+                                <c:when test="#{survey.errors.get(input.key).length() > 0}">
+                                    <p style="color: red">
+                                        <h:outputLabel value="#{survey.errors.get(input.key)}"/>
+                                    </p>
+                                </c:when>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <h:panelGroup id="additional-inputs" layout="block">
+                    <c:choose>
+                        <c:when test='#{survey.basicInputs["sex"].equals("1")}'>
+                            <c:forEach items="#{survey.menInputsLabels}" var="input">
+                                <div class="form-group">
+                                    <h:outputLabel for="#{input.key}" value="#{input.value}"/>
+                                    <h:inputText styleClass="form-control" id="#{input.key}" value="#{survey.menInputs[input.key]}" disabled='#{survey.isSurveyAccepted == "true"}'/>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="#{survey.womenInputsLabels}" var="input">
+                                <div class="form-group">
+                                    <h:outputLabel for="#{input.key}" value="#{input.value}"/>
+                                    <h:inputText styleClass="form-control" id="#{input.key}" value="#{survey.womenInputs[input.key]}" disabled='#{survey.isSurveyAccepted == "true"}'/>
+                                </div>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </h:panelGroup>
                 <c:choose>
-                    <c:when test='#{label.type == "TEXT"}'>
-                        <h:inputText styleClass="form-control"/>
+                    <c:when test='#{survey.isSurveyAccepted == "false"}'>
+                        <h:commandButton styleClass="btn btn-large btn-dark" value="Go!" action="#{survey.submit}">
+                            <f:ajax execute="survey-form" render="survey-form advanced-survey-form"/>
+                        </h:commandButton>
                     </c:when>
                 </c:choose>
-                
+            </h:form>
 
-            </div>
-        </c:forEach>
-    </h:form>
+            <h:form id="advanced-survey-form">
+                <c:choose>
+                    <c:when test='#{survey.isSurveyAccepted == "true"}'>
+                        <div class="form-group">
+                            <h:outputLabel for="spendMoney" value='#{advancedSurvey.additionalLabels["spendMoney"]}'/>
+                            <h:selectOneMenu id="spendMoney" styleClass="form-control"  value='#{advancedSurvey.additonals["spendMoney"]}'>
+                                <f:selectItems  value="#{advancedSurvey.spendMoneyOptions}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="buyingPeriod" value='#{advancedSurvey.additionalLabels["buyingPeriod"]}'/>
+                            <h:selectOneMenu id="buyingPeriod" styleClass="form-control"  value='#{advancedSurvey.additonals["buyingPeriod"]}'>
+                                <f:selectItems  value="#{advancedSurvey.buyingPeriodOptions}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="preferColor" value='#{advancedSurvey.additionalLabels["preferColor"]}'/>
+                            <h:selectOneMenu id="preferColor" styleClass="form-control" value='#{advancedSurvey.additonals["preferColor"]}'>
+                                <f:selectItems  value="#{advancedSurvey.preferColorOptions}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <c:choose>
+                                <c:when test='#{survey.basicInputs["sex"].equals("0")}'>
+                                    <h:outputLabel for="preferType" value='#{advancedSurvey.additionalLabels["preferType"]}'/>
+                                    <h:selectOneMenu id="preferType" styleClass="form-control" value='#{advancedSurvey.additonals["preferType"]}'>
+                                        <f:selectItems  value="#{advancedSurvey.preferTypeOptions}"/>
+                                    </h:selectOneMenu>
+                                </c:when>
+                                <c:otherwise>
+                                    <h:inputText styleClass="form-control" value='#{advancedSurvey.additonals["preferType"]}'/>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <h:commandButton styleClass="btn btn-large btn-dark" value="Go again!" action="#{advancedSurvey.submit}"/>
+                    </c:when>
+                </c:choose>
+            </h:form>
+        </div>
+    </div>
 </h:body>
 </html>

@@ -36,7 +36,7 @@
         <div class="BooksBodyView">
             <div class="BooksTableView">
                 <h:form id="books-form">
-                    <h:dataTable styleClass="table table-striped" id="books-table" value="#{books.booksToDisplay}" var="book">
+                    <h:dataTable styleClass="table table-striped BookTable" id="books-table" value="#{books.booksToDisplay}" var="book">
                         <h:column>
                             <f:facet name="header">Number</f:facet>
                             #{book.id + 1}.
