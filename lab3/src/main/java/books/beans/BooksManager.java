@@ -2,6 +2,8 @@ package books.beans;
 
 import books.domain.Book;
 import books.utils.BookUtil;
+import books.utils.CurrencyUtil;
+
 import java.util.*;
 
 import javax.faces.bean.ManagedBean;
@@ -17,6 +19,7 @@ public class BooksManager {
     private Map<String, String> selectedFilters = new HashMap<>();
     private double totalPrice = 0;
     private int selectedBooksCount = 0;
+    private boolean useNativeCurrency = false;
 
     private Map<String, String> filtersLabels = new HashMap() {{
         put("title", "Title");
@@ -29,7 +32,7 @@ public class BooksManager {
 
     public BooksManager() {
         this.booksAll = BookUtil.loadDataFromCsv(getClass().getClassLoader().getResource("assets/books.csv").getFile());
-        this.booksToDisplay = new ArrayList<>(this.booksAll);
+        this.booksToDisplay = BookUtil.bookArrayCopy(this.booksAll);
     }
 
     public double getTotalPrice() {
@@ -80,10 +83,13 @@ public class BooksManager {
         this.selectedFilters = selectedFilters;
     }
 
-    public void filterData() {
-        this.booksToDisplay = new ArrayList<>(this.booksAll);
+    public void toggleNativeCurrency() {
+        this.useNativeCurrency = !this.useNativeCurrency;
+        this.processData();
+    }
+
+    private void filterData() {
         for (Map.Entry<String, String> entry: this.selectedFilters.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
             if (!entry.getValue().isEmpty()) {
                 switch (entry.getKey()) {
                     case "title":
@@ -104,14 +110,30 @@ public class BooksManager {
                 }
             }
         }
-        BookUtil.reIndex(this.booksToDisplay);
+    }
+
+    private void exchangeCurrencyToPLN() {
+        for (Book book : this.booksToDisplay) {
+            book.setPrice(CurrencyUtil.exchangeToPLN(book.getCurrency(), book.getPrice()));
+            book.setCurrency("PLN");
+        }
+    }
+
+    public void processData() {
+        this.booksToDisplay = BookUtil.bookArrayCopy(this.booksAll);
+        if (this.useNativeCurrency) {
+            this.exchangeCurrencyToPLN();
+        }
+        this.filterData();
     }
 
     public void checkoutSelected() {
+        this.totalPrice = 0;
         int checkedCounter = 0;
         for (Map.Entry<Integer, Boolean> entry: this.booksSelectionStatus.entrySet()) {
             if (entry.getValue()) {
-                this.totalPrice += this.booksToDisplay.get(entry.getKey()).getPrice();
+                Book book = this.booksAll.get(entry.getKey());
+                this.totalPrice += CurrencyUtil.exchangeToPLN(book.getCurrency(), book.getPrice());
                 checkedCounter++;
             }
         }

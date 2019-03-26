@@ -53,11 +53,11 @@ public class BookUtil {
         return books;
     }
 
-    public static void reIndex(ArrayList<Book> books) {
-        int counter = 0;
-        for (Book book: books) {
-            book.setId(counter);
-            counter++;
+    public static ArrayList<Book> bookArrayCopy(ArrayList<Book> bookArray) {
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book book : bookArray) {
+            books.add(book.copy());
         }
+        return books;
     }
 }

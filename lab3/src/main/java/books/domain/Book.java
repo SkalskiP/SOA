@@ -11,6 +11,24 @@ public class Book {
     private String publisher;
     private String image;
 
+    public Book() {}
+
+    public Book(Integer id, String title, String author, String category, double price, String currency, String pages, String publisher, String image) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.price = price;
+        this.currency = currency;
+        this.pages = pages;
+        this.publisher = publisher;
+        this.image = image;
+    }
+
+    public Book copy() {
+        return new Book(this.id, this.title, this.author, this.category, this.price, this.currency, this.pages, this.publisher, this.image);
+    }
+
     public Integer getId() {
         return id;
     }

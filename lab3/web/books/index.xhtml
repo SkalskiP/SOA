@@ -83,15 +83,19 @@
                             <div class="form-group">
                                 <h:outputLabel for="#{label.key}" value="#{label.value}"/>
                                 <h:inputText styleClass="form-control" id="#{label.key}" value="#{books.selectedFilters[label.key]}">
-                                    <f:ajax event="keyup" render="books-form:books-table" listener="#{books.filterData}" />
+                                    <f:ajax event="keyup" render="books-form:books-table" listener="#{books.processData}" />
                                 </h:inputText>
                             </div>
                         </c:forEach>
+                        <h:selectBooleanCheckbox>
+                            <f:ajax listener="#{books.toggleNativeCurrency}" render="books-form:books-table"/>
+                        </h:selectBooleanCheckbox>
+                        Use PLN
                     </h:form>
                 </div>
                 <div>
                     <div class="SummaryEntry">
-                        Total price: <h:outputLabel id="totalPrice" value="#{books.totalPrice}"/>
+                        Total price in PLN: <h:outputLabel id="totalPrice" value="#{books.totalPrice}"/>
                     </div>
                     <div class="SummaryEntry">
                         Selected books count: <h:outputLabel id="totalCount" value="#{books.selectedBooksCount}"/>
