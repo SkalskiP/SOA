@@ -31,3 +31,8 @@ body, html {
     max-width: 600px;
     padding: 40px 0;
 }
+
+.SummaryRecord {
+    width: 100%;
+    margin: 10px;
+}

@@ -125,9 +125,6 @@
                                         <f:selectItems  value="#{advancedSurvey.preferTypeOptions}"/>
                                     </h:selectOneMenu>
                                 </c:when>
-                                <c:otherwise>
-                                    <h:inputText styleClass="form-control" value='#{advancedSurvey.additonals["preferType"]}'/>
-                                </c:otherwise>
                             </c:choose>
                         </div>
                         <h:commandButton styleClass="btn btn-large btn-dark" value="Go again!" action="#{advancedSurvey.submit}"/>

@@ -1,13 +1,13 @@
 package survey.beans;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import java.util.HashMap;
 import java.util.Map;
 
 
 @ManagedBean(name="survey")
-@ViewScoped
+@SessionScoped
 public class SurveyManager {
     private HashMap<String, String> basicInputs = new HashMap<String, String>() {{
         put("sex", "0");
@@ -17,7 +17,7 @@ public class SurveyManager {
         put("name", "Name");
         put("mail", "E-Mail Address");
         put("age", "Age");
-        put("sex", "Sex");
+        put("sex", "Gender");
         put("education", "Education");
         put("height", "Height");
 
