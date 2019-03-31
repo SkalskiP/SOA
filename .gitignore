@@ -1,9 +1,24 @@
 # INTELIIJ
 
-.DS_Store
-.idea
+.DS_Store/
+.idea/
+
+# MAVEN
+
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
 
 # JAVA
+
+out/
 
 # Compiled class file
 *.class
@@ -50,3 +65,7 @@ jboss/server/minimal/work/**/*
 # deployed package files #
 
 *.DEPLOYED
+
+# PROJECT
+
+materials/

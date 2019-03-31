@@ -1,10 +1,12 @@
 package survey.beans;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import java.util.HashMap;
 import java.util.Map;
 
 @ManagedBean(name = "advancedSurvey")
+@SessionScoped
 public class AdvancedSurveyManager {
     private Map<String, String> additonals = new HashMap<>();
     private Map<String, String> additionalLabels = new HashMap<String, String>() {{
@@ -89,10 +91,11 @@ public class AdvancedSurveyManager {
     public void setPreferTypeOptions(Map<String, String> preferTypeOptions) {
         this.preferTypeOptions = preferTypeOptions;
     }
-    public void submit() {
+    public String submit() {
         for (Map.Entry<String, String> entry: this.additonals.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
+        return "surveySummary";
     }
 
 }
