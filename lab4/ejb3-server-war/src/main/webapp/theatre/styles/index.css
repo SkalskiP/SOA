@@ -1,0 +1,33 @@
+body, html {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+body {
+    position: fixed;
+}
+
+.MainView {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+
+    background-color: #F0F0F0;
+}
+
+.NavView {
+    font-family: 'Exo 2', sans-serif;
+    color: white;
+}
