@@ -1,0 +1,139 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+}
+
+.MainView {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+
+    background-color: #F0F0F0;
+}
+
+.NavBar {
+    width: 100%;
+    height: 50px;
+    padding: 8px 16px;
+    background-color: #343a40;
+    color: white;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.NavBarHeader {
+    font-size: 20px;
+    font-weight: 600;
+    flex: 1 0 auto;
+    align-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.NavBarSelect {
+    width: 30% !important;
+    max-width: 400px;
+}
+
+.SelectUserWrapper {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.SelectInput {
+    max-width: 250px;
+    margin-left: 25px;
+}
+
+.MainViewContent{
+    flex: 1 0 auto;
+    align-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.EventSelect {
+    width: 100%;
+    min-height: 200px;
+}
+
+.SelectUserPrompt {
+    min-height: 200px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 30px;
+    font-weight: 600;
+    color: lightslategray;
+}
+
+.SelectEventContainer {
+    width: 100%;
+    min-height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.SelectSeatContainer {
+    width: 70%;
+    height: 450px;
+
+    background-color: white;
+}
+
+.SelectEventPrompt {
+    width: 70%;
+    height: 50px;
+    padding: 8px 16px;
+    background-color: #343a40;
+    color: white;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.SelectEventPromptHeader {
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1 0 auto;
+    align-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -7,9 +7,9 @@ public class CustomerDTO implements Serializable {
     private String id;
     private String name;
     private String surname;
-    private Integer balance;
+    private Double balance;
 
-    public CustomerDTO(String name, String surname, Integer balance) {
+    public CustomerDTO(String name, String surname, Double balance) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.surname = surname;
@@ -40,11 +40,11 @@ public class CustomerDTO implements Serializable {
         this.surname = surname;
     }
 
-    public Integer getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Integer balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 

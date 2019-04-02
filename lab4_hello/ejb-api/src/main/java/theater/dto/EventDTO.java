@@ -60,4 +60,9 @@ public class EventDTO implements Serializable {
     public void setSeats(ArrayList<SeatDTO> seats) {
         this.seats = seats;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

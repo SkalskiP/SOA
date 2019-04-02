@@ -1,3 +1,5 @@
 package theater.interfaces.remote;
 
-public interface IRemoteReservationManager {}
+import theater.interfaces.IReservationManager;
+
+public interface IRemoteReservationManager extends IReservationManager {}
