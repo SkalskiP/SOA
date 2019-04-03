@@ -13,13 +13,16 @@ public interface IReservationManager {
     ArrayList<SeatDTO> getSeatList(EventDTO event);
 
     @Lock
-    Integer getSeatPrice(EventDTO event, SeatDTO seat);
+    Double getSeatPrice(EventDTO event, SeatDTO seat);
 
     @Lock
     void buyTickets(EventDTO event, ArrayList<SeatDTO> seats, CustomerDTO customer) throws NotEnoughFundsException, SeatNotAvailableException;
 
     @Lock
     EventDTO getEventById(String eventId);
+
+    @Lock
+    SeatDTO getSeatById(EventDTO event, String seatId);
 
     ArrayList<EventDTO> getAllEvents();
 }

@@ -3,6 +3,8 @@ package controllers;
 import theater.dto.CustomerDTO;
 import theater.dto.EventDTO;
 import theater.dto.SeatDTO;
+import theater.exceptions.NotEnoughFundsException;
+import theater.exceptions.SeatNotAvailableException;
 import theater.interfaces.remote.IRemoteCustomerManager;
 import theater.interfaces.remote.IRemoteReservationManager;
 
@@ -11,14 +13,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 @SessionScoped
 @ManagedBean(name = "mainController")
 public class MainController  {
 
+    private Boolean insufficientFunds;
     private String selectedCustomerId;
     private String selectedEventId;
-    private HashMap<String, Boolean> selectedSeats = new HashMap<>();
+    private Integer numberOfSelectedSeats;
+    private Double totalPrice;
+    private HashMap<String, Boolean> selectedSeats;
 
     @EJB(lookup = "java:global/ejb-1.0-SNAPSHOT/CustomerManagerBean")
     private IRemoteCustomerManager customerManager;
@@ -26,7 +32,11 @@ public class MainController  {
     @EJB(lookup = "java:global/ejb-1.0-SNAPSHOT/ReservationManagerBean")
     private IRemoteReservationManager reservationManager;
 
-    public MainController() {}
+    public MainController() {
+        this.numberOfSelectedSeats = 0;
+        this.totalPrice = 0.0;
+        this.selectedSeats = new HashMap<>();
+    }
 
     // =================================================================================================================
     // CUSTOMERS
@@ -45,6 +55,8 @@ public class MainController  {
             this.selectedCustomerId = selectedCustomerId;
             this.selectedEventId = null;
             this.selectedSeats = new HashMap<>();
+            this.totalPrice = 0.0;
+            this.numberOfSelectedSeats = 0;
         }
     }
 
@@ -108,7 +120,58 @@ public class MainController  {
         this.selectedSeats = selectedSeats;
     }
 
+    public Integer getNumberOfSelectedSeats() {
+        if (numberOfSelectedSeats != null) {
+            return numberOfSelectedSeats;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public void setNumberOfSelectedSeats(Integer numberOfSelectedSeats) {
+        this.numberOfSelectedSeats = numberOfSelectedSeats;
+    }
+
+    public void handleChangeSeat() {
+        Integer numberOfSelectedSeats = 0;
+        Double totalPrice = 0.0;
+        for (Map.Entry<String, Boolean> entry : selectedSeats.entrySet()) {
+            String seatId = entry.getKey();
+            Boolean isSelected = entry.getValue();
+            if (isSelected) {
+                numberOfSelectedSeats ++;
+                totalPrice += this.reservationManager.getSeatPrice(this.getSelectedEvent(), this.reservationManager.getSeatById(this.getSelectedEvent(), seatId));
+            }
+        }
+        this.numberOfSelectedSeats = numberOfSelectedSeats;
+        this.totalPrice = totalPrice;
+        this.insufficientFunds = this.totalPrice > this.getBalanceForSelectedCustomer();
+        System.out.println("Selected: " + this.numberOfSelectedSeats.toString());
+        System.out.println("Price: " + this.totalPrice.toString());
+    }
+
     // =================================================================================================================
+    // PRICE
+    // =================================================================================================================
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Boolean getInsufficientFunds() {
+        return insufficientFunds;
+    }
+
+    public void setInsufficientFunds(Boolean insufficientFunds) {
+        this.insufficientFunds = insufficientFunds;
+    }
+
+// =================================================================================================================
     // DEBUG
     // =================================================================================================================
 
@@ -125,11 +188,33 @@ public class MainController  {
     }
 
     // =================================================================================================================
-    // DEBUG
+    // SUBMIT
     // =================================================================================================================
 
     public void submit() {
-        System.out.println("submit");
-        System.out.println(this.selectedSeats);
+        System.out.println("SUBMIT");
+
+        ArrayList<SeatDTO> seats = new ArrayList<>();
+
+        for (Map.Entry<String, Boolean> entry : selectedSeats.entrySet()) {
+            String seatId = entry.getKey();
+            Boolean isSelected = entry.getValue();
+            if (isSelected) {
+                seats.add(this.reservationManager.getSeatById(this.getSelectedEvent(), seatId));
+            }
+        }
+
+        try {
+            this.reservationManager.buyTickets(this.getSelectedEvent(), seats, this.getSelectedCustomer());
+//            error = null;
+        } catch (NotEnoughFundsException e) {
+//            error = "NotEnoughFunds";
+        } catch (SeatNotAvailableException e) {
+//            error = "SeatNotAvailable";
+        }
+
+        this.numberOfSelectedSeats = 0;
+        this.totalPrice = 0.0;
+        this.selectedSeats = new HashMap<>();
     }
 }

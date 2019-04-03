@@ -59,31 +59,60 @@
                     </c:when>
                     <c:otherwise>
                         <div class="SelectEventContainer">
-                            <div class="SelectEventPrompt">
-                                <div class="SelectEventPromptHeader">
-                                    Select event you would like to attend
+                            <div class="SelectEventContainerLeft">
+                                <div class="SelectEventPrompt">
+                                    <div class="PromptHeader">
+                                        Select event you would like to attend
+                                    </div>
+                                    <h:form id="event-select-form">
+                                        <h:selectOneMenu styleClass="form-control dark SelectInput" value="#{mainController.selectedEventId}">
+                                            <f:selectItem itemValue="#{null}" itemLabel="Select..." />
+                                            <f:selectItems  value="#{mainController.events}" var="event" itemValue="#{event.id}" itemLabel="#{event.toString()}"/>
+                                            <f:ajax event="valueChange" listener="#{mainController.handleChangeEvent}" render="event-form"/>
+                                        </h:selectOneMenu>
+                                    </h:form>
                                 </div>
-                                <h:form id="event-select-form">
-                                    <h:selectOneMenu styleClass="form-control dark SelectInput" value="#{mainController.selectedEventId}">
-                                        <f:selectItem itemValue="#{null}" itemLabel="Select..." />
-                                        <f:selectItems  value="#{mainController.events}" var="event" itemValue="#{event.id}" itemLabel="#{event.toString()}"/>
-                                        <f:ajax event="valueChange" listener="#{mainController.handleChangeEvent}" render="event-form"/>
-                                    </h:selectOneMenu>
-                                </h:form>
-                            </div>
-                            <div class="SelectSeatContainer">
+                                <div class="SelectSeatContainer">
 
-                                <ui:repeat value="#{mainController.seats}" var="seat">
-                                    <label class="Seat">
-                                        <h:selectBooleanCheckbox styleClass="SeatCheckbox" value="#{mainController.selectedSeats[seat.id]}"/>
-                                        <span class="checkmark">#{seat.toString()}</span>
-                                    </label>
-                                </ui:repeat>
-                                <c:choose>
-                                    <c:when test='#{mainController.selectedEventId != null}'>
-                                        <h:commandButton styleClass="btn btn-large btn-dark SubmitButton" value="Get tickets" action="#{mainController.submit}" />
-                                    </c:when>
-                                </c:choose>
+                                    <ui:repeat value="#{mainController.seats}" var="seat">
+                                        <label class="Seat">
+                                            <h:selectBooleanCheckbox styleClass="SeatCheckbox" value="#{mainController.selectedSeats[seat.id]}" disabled="#{seat.reserved}">
+                                                <f:ajax event="valueChange" listener="#{mainController.handleChangeSeat}" render="event-form overall-form"/>
+                                            </h:selectBooleanCheckbox>
+                                            <span class="checkmark">#{seat.toString()}</span>
+                                        </label>
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                            <div class="SelectEventContainerRight">
+                                <div class="OverallHeader">
+                                    <div class="PromptHeader">
+                                        Overall
+                                    </div>
+                                </div>
+                                <div class="OverallContainer">
+                                    <div class="OverallContent">
+                                        Number of selected tickets: #{mainController.numberOfSelectedSeats}
+                                        <br/>
+                                        Total price: #{mainController.totalPrice}
+                                    </div>
+                                    <h:form id="overall-form">
+                                        <c:choose>
+                                            <c:when test="#{mainController.insufficientFunds}">
+                                                Insufficient funds
+                                            </c:when>
+                                            <c:when test='#{mainController.selectedEventId != null}'>
+                                                <c:choose>
+                                                    <c:when test="#{!mainController.insufficientFunds}">
+                                                        <h:commandButton styleClass="btn btn-large btn-dark" value="Get tickets" action="#{mainController.submit}">
+                                                            <f:ajax event="click" render="event-form user-form"/>
+                                                        </h:commandButton>
+                                                    </c:when>
+                                                </c:choose>
+                                            </c:when>
+                                        </c:choose>
+                                    </h:form>
+                                </div>
                             </div>
                         </div>
                     </c:otherwise>

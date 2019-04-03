@@ -6,5 +6,5 @@ import javax.ejb.Lock;
 
 public interface IPaymentManager {
     @Lock
-    void executeTransaction(CustomerDTO customer, Integer amount);
+    void executeTransaction(CustomerDTO customer, Double amount);
 }
