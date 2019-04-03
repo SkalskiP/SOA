@@ -44,7 +44,7 @@
                     <h:selectOneMenu styleClass="form-control dark SelectInput" value="#{mainController.selectedCustomerId}">
                         <f:selectItem itemValue="#{null}" itemLabel="Select..." />
                         <f:selectItems  value="#{mainController.customers}" var="customer" itemValue="#{customer.id}" itemLabel="#{customer.toString()}"/>
-                        <f:ajax event="valueChange" listener="#{mainController.handleChange}" render="event-form user-form"/>
+                        <f:ajax event="valueChange" listener="#{mainController.handleChangeUser}" render="event-form user-form"/>
                     </h:selectOneMenu>
                 </div>
             </h:form>
@@ -67,12 +67,23 @@
                                     <h:selectOneMenu styleClass="form-control dark SelectInput" value="#{mainController.selectedEventId}">
                                         <f:selectItem itemValue="#{null}" itemLabel="Select..." />
                                         <f:selectItems  value="#{mainController.events}" var="event" itemValue="#{event.id}" itemLabel="#{event.toString()}"/>
-                                        <f:ajax event="valueChange" render="event-form"/>
+                                        <f:ajax event="valueChange" listener="#{mainController.handleChangeEvent}" render="event-form"/>
                                     </h:selectOneMenu>
                                 </h:form>
                             </div>
                             <div class="SelectSeatContainer">
 
+                                <ui:repeat value="#{mainController.seats}" var="seat">
+                                    <label class="Seat">
+                                        <h:selectBooleanCheckbox styleClass="SeatCheckbox" value="#{mainController.selectedSeats[seat.id]}"/>
+                                        <span class="checkmark">#{seat.toString()}</span>
+                                    </label>
+                                </ui:repeat>
+                                <c:choose>
+                                    <c:when test='#{mainController.selectedEventId != null}'>
+                                        <h:commandButton styleClass="btn btn-large btn-dark SubmitButton" value="Get tickets" action="#{mainController.submit}" />
+                                    </c:when>
+                                </c:choose>
                             </div>
                         </div>
                     </c:otherwise>

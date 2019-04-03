@@ -79,11 +79,13 @@ body, html {
 .EventSelect {
     width: 100%;
     min-height: 200px;
+    height: calc(100vh - 50px);
 }
 
 .SelectUserPrompt {
     min-height: 200px;
     width: 100%;
+    height: calc(100vh - 50px);
 
     display: flex;
     flex-direction: column;
@@ -98,6 +100,7 @@ body, html {
 .SelectEventContainer {
     width: 100%;
     min-height: 200px;
+    height: calc(100vh - 50px);
 
     display: flex;
     flex-direction: column;
@@ -108,8 +111,13 @@ body, html {
 .SelectSeatContainer {
     width: 70%;
     height: 450px;
-
     background-color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
 }
 
 .SelectEventPrompt {
@@ -136,4 +144,59 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.Seat {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: white;
+}
+
+.Seat input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: forestgreen;
+    opacity:0.5;
+}
+
+.Seat:hover input ~ .checkmark {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+.Seat input:checked ~ .checkmark {
+    opacity:1;
+}
+
+.Seat input:disabled ~ .checkmark {
+    background-color: darkred;
+}
+
+.SubmitButton {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
 }

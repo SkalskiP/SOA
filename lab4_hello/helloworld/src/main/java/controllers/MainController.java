@@ -2,6 +2,7 @@ package controllers;
 
 import theater.dto.CustomerDTO;
 import theater.dto.EventDTO;
+import theater.dto.SeatDTO;
 import theater.interfaces.remote.IRemoteCustomerManager;
 import theater.interfaces.remote.IRemoteReservationManager;
 
@@ -9,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @SessionScoped
 @ManagedBean(name = "mainController")
@@ -16,6 +18,7 @@ public class MainController  {
 
     private String selectedCustomerId;
     private String selectedEventId;
+    private HashMap<String, Boolean> selectedSeats = new HashMap<>();
 
     @EJB(lookup = "java:global/ejb-1.0-SNAPSHOT/CustomerManagerBean")
     private IRemoteCustomerManager customerManager;
@@ -38,7 +41,11 @@ public class MainController  {
     }
 
     public void setSelectedCustomerId(String selectedCustomerId) {
-        this.selectedCustomerId = selectedCustomerId;
+        if (this.selectedCustomerId != selectedCustomerId) {
+            this.selectedCustomerId = selectedCustomerId;
+            this.selectedEventId = null;
+            this.selectedSeats = new HashMap<>();
+        }
     }
 
     public CustomerDTO getSelectedCustomer() {
@@ -83,12 +90,46 @@ public class MainController  {
     }
 
     // =================================================================================================================
+    // SEATS
+    // =================================================================================================================
+
+    public ArrayList<SeatDTO> getSeats() {
+        if (this.selectedEventId != null) {
+            return reservationManager.getEventById(selectedEventId).getSeats();
+        }
+        return null;
+    }
+
+    public HashMap<String, Boolean> getSelectedSeats() {
+        return selectedSeats;
+    }
+
+    public void setSelectedSeats(HashMap<String, Boolean> selectedSeats) {
+        this.selectedSeats = selectedSeats;
+    }
+
+    // =================================================================================================================
     // DEBUG
     // =================================================================================================================
 
-    public void handleChange() {
+    public void handleChangeUser() {
         if (selectedCustomerId != null) {
             System.out.println("New selected user: " + this.getSelectedCustomer().toString());
         }
+    }
+
+    public void handleChangeEvent() {
+        if (selectedEventId != null) {
+            System.out.println("New selected event: " + this.getSelectedEvent().toString());
+        }
+    }
+
+    // =================================================================================================================
+    // DEBUG
+    // =================================================================================================================
+
+    public void submit() {
+        System.out.println("submit");
+        System.out.println(this.selectedSeats);
     }
 }
