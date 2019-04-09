@@ -1,3 +1,6 @@
+# PYTHON VIRTUAL ENV
+.env/
+
 # INTELIIJ
 
 .DS_Store/

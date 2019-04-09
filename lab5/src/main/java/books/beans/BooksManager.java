@@ -1,7 +1,6 @@
 package books.beans;
 
 import books.dao.BookDAO;
-import books.domain.Book;
 import books.dto.BookDTO;
 import books.utils.CurrencyUtil;
 
