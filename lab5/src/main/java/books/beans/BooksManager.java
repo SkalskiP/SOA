@@ -3,15 +3,12 @@ package books.beans;
 import books.dao.BookDAO;
 import books.domain.Book;
 import books.dto.BookDTO;
-import books.utils.BookUtil;
 import books.utils.CurrencyUtil;
 
 import java.util.*;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import java.util.ArrayList;
 
 @ManagedBean(name="books")
 @SessionScoped
