@@ -9,30 +9,33 @@ import java.io.Serializable;
 public class BookDTO implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "author")
-    private String author;
+    @Column(name = "author_name")
+    private String authorName;
+
+    @Column(name = "author_surname")
+    private String authorSurname;
 
     @Column(name = "category", nullable = false)
     private String category;
 
     @Column(name = "price", nullable = false)
-    private double price;
-
-    @Column(name = "currency", nullable = false)
-    private String currency;
+    private Double price;
 
     @Column(name = "pages", nullable = false)
-    private String pages;
+    private Integer pages;
 
     @Column(name = "publisher")
     private String publisher;
+
+    @Column(name = "isbn", nullable = false)
+    private String isbn;
 
     public Integer getId() {
         return id;
@@ -50,12 +53,20 @@ public class BookDTO implements Serializable {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorSurname() {
+        return authorSurname;
+    }
+
+    public void setAuthorSurname(String authorSurname) {
+        this.authorSurname = authorSurname;
     }
 
     public String getCategory() {
@@ -66,27 +77,19 @@ public class BookDTO implements Serializable {
         this.category = category;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public String getPages() {
+    public Integer getPages() {
         return pages;
     }
 
-    public void setPages(String pages) {
+    public void setPages(Integer pages) {
         this.pages = pages;
     }
 
@@ -98,8 +101,16 @@ public class BookDTO implements Serializable {
         this.publisher = publisher;
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
     @Override
     public String toString() {
-        return this.author + " " + this.title + " " + this.category + " " + this.price;
+        return this.authorName + " " + this.authorSurname + " " + this.title + " " + this.category + " " + this.price;
     }
 }

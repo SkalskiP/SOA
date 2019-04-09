@@ -18,7 +18,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="BooksPersistenceUnit" />
+          <factory-entry name="BooksPersistenceUnit" value="338420d4-e540-4c3d-8ec9-09c8de186316" />
           <factory-entry name="NewPersistenceUnit" value="338420d4-e540-4c3d-8ec9-09c8de186316" />
         </datasource-mapping>
         <naming-strategy-map />
