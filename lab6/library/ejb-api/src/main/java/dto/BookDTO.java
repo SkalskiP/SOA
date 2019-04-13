@@ -40,6 +40,8 @@ public class BookDTO implements Serializable {
     @Column(name = "count", nullable = false)
     private Integer count;
 
+    public BookDTO() {}
+
     public Integer getId() {
         return id;
     }
