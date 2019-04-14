@@ -2,6 +2,8 @@ package dao;
 
 import dto.BookDTO;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ public class BookDAO {
         entityManager = factory.createEntityManager();
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public static BookDAO getInstance() {
         if (instance == null) {
             instance = new BookDAO();
@@ -23,11 +26,13 @@ public class BookDAO {
         return instance;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<BookDTO> getItems() {
         Query query = entityManager.createQuery("FROM BookDTO", BookDTO.class);
         return query.getResultList();
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public BookDTO getItem(Integer itemId) {
         BookDTO book = entityManager.find(BookDTO.class, itemId);
         if (book == null) {
@@ -36,12 +41,14 @@ public class BookDAO {
         return book;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateItem(BookDTO item) {
         entityManager.getTransaction().begin();
         entityManager.merge(item);
         entityManager.getTransaction().commit();
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Optional<Integer> createItem(BookDTO item) {
         try {
             entityManager.getTransaction().begin();
@@ -54,9 +61,10 @@ public class BookDAO {
         }
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteItem(BookDTO item) {
         entityManager.getTransaction().begin();
-        entityManager.remove(item);
+        entityManager.remove(entityManager.contains(item) ? item : entityManager.merge(item));
         entityManager.getTransaction().commit();
     }
 }

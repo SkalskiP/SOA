@@ -30,6 +30,7 @@ public class UserManagerBean implements RemoteUserManager {
 
     @Override
     public void removeUser(UserDTO user) {
+        System.out.println("Hello manage bean");
         UserDAO.getInstance().deleteItem(user);
     }
 

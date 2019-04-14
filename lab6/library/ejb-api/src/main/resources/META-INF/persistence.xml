@@ -8,6 +8,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/Library</jta-data-source>
         <class>dto.BookDTO</class>
+        <class>dto.UserDTO</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL55Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
