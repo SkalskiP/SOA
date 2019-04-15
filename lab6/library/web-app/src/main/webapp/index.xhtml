@@ -41,7 +41,7 @@
                     <div class="NavBarGroup">
                         <ui:repeat value="#{GeneralController.buttons}" var="button">
                             <h:commandButton styleClass="btn btn-outline-light #{GeneralController.currentSelection == button ? 'active' :''}" value="#{button}" action="#{GeneralController.handleSelection(button)}">
-                                <f:ajax event="click" render="select-user-form action-buttons admin-form content-form"/>
+                                <f:ajax event="click" render="@all"/>
                             </h:commandButton>
                         </ui:repeat>
                     </div>
@@ -54,7 +54,7 @@
                             <h:selectOneMenu styleClass="form-control mr-sm-2" value="#{GeneralController.selectedUserId}">
                                 <f:selectItem itemValue="#{null}" itemLabel="Select user..." />
                                 <f:selectItems  value="#{UsersController.users}" var="user" itemValue="#{user.id}" itemLabel="#{user.toString()}"/>
-                                <f:ajax event="valueChange" listener="#{GeneralController.handleChangeUser}" render="action-buttons content-form"/>
+                                <f:ajax event="valueChange" listener="#{GeneralController.handleChangeUser}" render="@all"/>
                             </h:selectOneMenu>
                         </c:when>
                     </c:choose>
@@ -62,110 +62,108 @@
             </div>
         </div>
         <div class="MainViewContent">
-            <h:form id="content-form" styleClass="MainViewContentForm">
-                <div class="MainViewContent">
-                    <c:choose>
-                        <c:when test='#{GeneralController.adminModeActive}'>
-                            <c:choose>
-                                <c:when test='#{GeneralController.currentSelection == "Manage users"}'>
-                                    <h:dataTable styleClass="table table-striped BookTable" id="users-table" value="#{UsersController.users}" var="user">
-                                        <h:column>
-                                            <f:facet name="header">Number</f:facet>
-                                            #{user.id}.
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Name</f:facet>
-                                            #{user.firstName}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Surname</f:facet>
-                                            #{user.lastName}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Email</f:facet>
-                                            #{user.email}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Phone</f:facet>
-                                            #{user.phoneNumber}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">City</f:facet>
-                                            #{user.city}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header"> </f:facet>
-                                            <h:form>
-                                                <h:commandButton  value="Delete" styleClass="btn btn-danger btn-sm" action="#{UsersController.deleteUser(user.id)}">
-                                                    <f:ajax render="content-form"/>
-                                                </h:commandButton>
-                                            </h:form>
-                                        </h:column>
-                                    </h:dataTable>
-                                </c:when>
-                                <c:when test='#{GeneralController.currentSelection == "Manage books"}'>
-                                    <h:dataTable styleClass="table table-striped BookTable" id="books-table" value="#{BooksController.books}" var="book">
-                                        <h:column>
-                                            <f:facet name="header">Number</f:facet>
-                                            #{book.id}.
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Title</f:facet>
-                                            #{book.title}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Author Name</f:facet>
-                                            #{book.authorName}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Author Surname</f:facet>
-                                            #{book.authorSurname}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Category</f:facet>
-                                            #{book.category}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Price</f:facet>
-                                            #{book.price}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">ISBN</f:facet>
-                                            #{book.isbn}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Pages</f:facet>
-                                            #{book.pages}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header"> </f:facet>
-                                            <h:form>
-                                                <h:commandButton  value="Delete" styleClass="btn btn-danger btn-sm" action="#{BooksController.deleteBook(book.id)}">
-                                                    <f:ajax render="content-form totalPrice totalCount"/>
-                                                </h:commandButton>
-                                            </h:form>
-                                        </h:column>
-                                    </h:dataTable>
-                                </c:when>
-                            </c:choose>
-                        </c:when>
-                        <c:otherwise>
-                            <c:choose>
-                                <c:when test='#{GeneralController.selectedUserId == null}'>
-                                    <div class="Prompt">
-                                        <p>
-                                            Please select a user to continue
-                                        </p>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    CONTENT
-                                </c:otherwise>
-                            </c:choose>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </h:form>
+            <div class="MainViewContent">
+                <c:choose>
+                    <c:when test='#{GeneralController.adminModeActive}'>
+                        <c:choose>
+                            <c:when test='#{GeneralController.currentSelection == "Manage users"}'>
+                                <h:dataTable styleClass="table table-striped BookTable" id="users-table" value="#{UsersController.users}" var="user">
+                                    <h:column>
+                                        <f:facet name="header">Number</f:facet>
+                                        #{user.id}.
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Name</f:facet>
+                                        #{user.firstName}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Surname</f:facet>
+                                        #{user.lastName}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Email</f:facet>
+                                        #{user.email}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Phone</f:facet>
+                                        #{user.phoneNumber}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">City</f:facet>
+                                        #{user.city}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"> </f:facet>
+                                        <h:form>
+                                            <h:commandButton  value="Delete" styleClass="btn btn-danger btn-sm" action="#{UsersController.deleteUser(user.id)}">
+                                                <f:ajax event="click" render="@all"/>
+                                            </h:commandButton>
+                                        </h:form>
+                                    </h:column>
+                                </h:dataTable>
+                            </c:when>
+                            <c:when test='#{GeneralController.currentSelection == "Manage books"}'>
+                                <h:dataTable styleClass="table table-striped BookTable" id="books-table" value="#{BooksController.books}" var="book">
+                                    <h:column>
+                                        <f:facet name="header">Number</f:facet>
+                                        #{book.id}.
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Title</f:facet>
+                                        #{book.title}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Author Name</f:facet>
+                                        #{book.authorName}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Author Surname</f:facet>
+                                        #{book.authorSurname}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Category</f:facet>
+                                        #{book.category}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Price</f:facet>
+                                        #{book.price}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">ISBN</f:facet>
+                                        #{book.isbn}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Pages</f:facet>
+                                        #{book.pages}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"> </f:facet>
+                                        <h:form>
+                                            <h:commandButton  value="Delete" styleClass="btn btn-danger btn-sm" action="#{BooksController.deleteBook(book.id)}">
+                                                <f:ajax event="click" render="@all"/>
+                                            </h:commandButton>
+                                        </h:form>
+                                    </h:column>
+                                </h:dataTable>
+                            </c:when>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test='#{GeneralController.selectedUserId == null}'>
+                                <div class="Prompt">
+                                    <p>
+                                        Please select a user to continue
+                                    </p>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                CONTENT
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </div>
         <div class="NavBar">
             <div class="NavBarGroup">
@@ -173,7 +171,7 @@
             <div class="NavBarGroup">
                 <h:form id="admin-form">
                     <h:commandButton styleClass="btn btn-outline-light my-2 my-sm-0" value="#{GeneralController.adminModeActive ? 'Turn off admin mode' : 'Turn on admin mode'}" action="#{GeneralController.toggleAdminMode}">
-                        <f:ajax event="click" render="select-user-form action-buttons admin-form content-form"/>
+                        <f:ajax event="click" render="@all"/>
                     </h:commandButton>
                 </h:form>
             </div>
