@@ -49,16 +49,10 @@ public class BookDAO {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Optional<Integer> createItem(BookDTO item) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(item);
-            entityManager.getTransaction().commit();
-            return Optional.of(item.getId());
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            return Optional.empty();
-        }
+    public void createItem(BookDTO item) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(item);
+        entityManager.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)

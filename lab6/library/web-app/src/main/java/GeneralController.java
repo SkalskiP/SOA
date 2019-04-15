@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GeneralController implements Serializable {
 
     private Integer selectedUserId = null;
-    private Boolean isAdminModeActive = false;
+    private Boolean isAdminModeActive = true;
 
     private ArrayList<String> adminButtons = new ArrayList<String>() {{
         add("Manage users");

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Remote(RemoteMenuManager.class)
 public class MenuManagerBean implements RemoteMenuManager {
 
-    private Boolean isAdminModeActive = false;
+    private Boolean isAdminModeActive = true;
 
     private ArrayList<String> adminButtons = new ArrayList<String>() {{
         add("Manage users");

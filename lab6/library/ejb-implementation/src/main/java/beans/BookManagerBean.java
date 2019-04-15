@@ -7,7 +7,6 @@ import interfaces.remote.RemoteBookManager;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.util.List;
-import java.util.Optional;
 
 @Stateless
 @Remote(RemoteBookManager.class)
@@ -24,8 +23,8 @@ public class BookManagerBean implements RemoteBookManager {
     }
 
     @Override
-    public Optional<Integer> addBook(BookDTO book) {
-        return BookDAO.getInstance().createItem(book);
+    public void addBook(BookDTO book) {
+        BookDAO.getInstance().createItem(book);
     }
 
     @Override

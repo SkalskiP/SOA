@@ -146,6 +146,50 @@
                                     </h:column>
                                 </h:dataTable>
                             </c:when>
+                            <c:when test='#{GeneralController.currentSelection == "Manage borrows"}'>
+                                <h:dataTable styleClass="table table-striped BookTable" id="borrows-table" value="#{BorrowsController.borrows}" var="borrow">
+                                    <h:column>
+                                        <f:facet name="header">Number</f:facet>
+                                        #{borrow.id}.
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Book Title</f:facet>
+                                        #{borrow.book.title}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Author Name</f:facet>
+                                        #{borrow.book.authorName}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Author Surname</f:facet>
+                                        #{borrow.book.authorSurname}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">User Name</f:facet>
+                                        #{borrow.user.firstName}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">User Surname</f:facet>
+                                        #{borrow.user.lastName}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Borrow Start</f:facet>
+                                        #{borrow.borrowStartDate}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Borrow End</f:facet>
+                                        #{borrow.borrowEndDate}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"> </f:facet>
+                                        <h:form>
+                                            <h:commandButton  value="Delete" styleClass="btn btn-danger btn-sm" action="#{BorrowsController.deleteBorrow(borrow.id)}">
+                                                <f:ajax event="click" render="@all"/>
+                                            </h:commandButton>
+                                        </h:form>
+                                    </h:column>
+                                </h:dataTable>
+                            </c:when>
                         </c:choose>
                     </c:when>
                     <c:otherwise>
@@ -167,6 +211,54 @@
         </div>
         <div class="NavBar">
             <div class="NavBarGroup">
+                <h:form id="create-new-button">
+                    <c:choose>
+                        <c:when test='#{GeneralController.currentSelection == "Manage books"}'>
+                            <button type="button" class="btn btn-md btn-success my-2 my-sm-0" data-toggle="modal" data-target="#bookModal">
+                                Add new
+                            </button>
+                            <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Add book</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <h:form>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <div class="Label">Title</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.title}"/>
+                                                    <div class="Label">Author Name</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.authorName}"/>
+                                                    <div class="Label">Author Name</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.authorSurname}"/>
+                                                    <div class="Label">Category</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.category}"/>
+                                                    <div class="Label">Publisher</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.publisher}"/>
+                                                    <div class="Label">ISBN</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.isbn}"/>
+                                                    <div class="Label">Price</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.price}"/>
+                                                    <div class="Label">Pages</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.pages}"/>
+                                                    <div class="Label">Count</div>
+                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.count}"/>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <h:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{BooksController.addBook}"/>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:when>
+                    </c:choose>
+                </h:form>
             </div>
             <div class="NavBarGroup">
                 <h:form id="admin-form">

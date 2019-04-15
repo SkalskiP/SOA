@@ -89,3 +89,12 @@ body, html {
     font-weight: 600;
     color: lightslategray;
 }
+
+.Label {
+    color: black;
+    margin: 5px 0;
+}
+
+.modal-header {
+    color: black;
+}

@@ -14,10 +14,10 @@ public class BorrowDTO implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private BookDTO book;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private UserDTO user;
 
     @Column(name = "borrow_start_date", nullable = false)
