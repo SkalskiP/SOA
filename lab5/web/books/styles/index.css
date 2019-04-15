@@ -74,3 +74,12 @@ body {
 .SummaryEntry {
     margin: 5px 0;
 }
+
+.Modal {
+    padding: 0 25px;
+    color: black;
+}
+
+.Label {
+    margin: 5px 0;
+}

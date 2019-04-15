@@ -72,6 +72,14 @@
                         <h:column>
                             <f:facet name="header"> </f:facet>
                             <h:form>
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editModal">
+                                    Edit
+                                </button>
+                            </h:form>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"> </f:facet>
+                            <h:form>
                                 <h:commandButton  value="Delete" styleClass="btn btn-danger btn-sm" action="#{books.delete(book.id)}">
                                     <f:ajax render="books-form totalPrice totalCount"/>
                                 </h:commandButton>
@@ -81,29 +89,79 @@
                 </h:form>
             </div>
             <div class="BooksSidebarView">
-                <h:form id="create-new-book">
-                    <div class="form-group">
-                        <span>Title</span>
-                        <h:inputText styleClass="form-control" value="#{books.title}"/>
-                        <span>Author Name</span>
-                        <h:inputText styleClass="form-control" value="#{books.authorName}"/>
-                        <span>Author Name</span>
-                        <h:inputText styleClass="form-control" value="#{books.authorSurname}"/>
-                        <span>Category</span>
-                        <h:inputText styleClass="form-control" value="#{books.category}"/>
-                        <span>Publisher</span>
-                        <h:inputText styleClass="form-control" value="#{books.publisher}"/>
-                        <span>ISBN</span>
-                        <h:inputText styleClass="form-control" value="#{books.isbn}"/>
-                        <span>Price(PLN)</span>
-                        <h:inputText styleClass="form-control" value="#{books.price}"/>
-                        <span>Pages</span>
-                        <h:inputText styleClass="form-control" value="#{books.pages}"/>
+                <button type="button" class="btn btn-md btn-success" data-toggle="modal" data-target="#exampleModal">
+                    Add new book
+                </button>
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content Modal">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLongTitle">Edit book</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    x
+                                </button>
+                            </div>
+                            <h:form>
+                                <div class="form-group">
+                                    <div class="Label">Title</div>
+                                    <h:inputText styleClass="form-control" value="#{books.title}"/>
+                                    <div class="Label">Author Name</div>
+                                    <h:inputText styleClass="form-control" value="#{books.authorName}"/>
+                                    <div class="Label">Author Name</div>
+                                    <h:inputText styleClass="form-control" value="#{books.authorSurname}"/>
+                                    <div class="Label">Category</div>
+                                    <h:inputText styleClass="form-control" value="#{books.category}"/>
+                                    <div class="Label">Publisher</div>
+                                    <h:inputText styleClass="form-control" value="#{books.publisher}"/>
+                                    <div class="Label">ISBN</div>
+                                    <h:inputText styleClass="form-control" value="#{books.isbn}"/>
+                                    <div class="Label">Price(PLN)</div>
+                                    <h:inputText styleClass="form-control" value="#{books.price}"/>
+                                    <div class="Label">Pages</div>
+                                    <h:inputText styleClass="form-control" value="#{books.pages}"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:commandButton styleClass="btn btn-md btn-success" value="Save" action="#{books.create()}"/>
+                                </div>
+                            </h:form>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <h:commandButton styleClass="btn btn-md btn-success" value="Add new" action="#{books.create}"/>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content Modal">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add book</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    x
+                                </button>
+                            </div>
+                            <h:form>
+                                <div class="form-group">
+                                    <div class="Label">Title</div>
+                                    <h:inputText styleClass="form-control" value="#{books.title}"/>
+                                    <div class="Label">Author Name</div>
+                                    <h:inputText styleClass="form-control" value="#{books.authorName}"/>
+                                    <div class="Label">Author Name</div>
+                                    <h:inputText styleClass="form-control" value="#{books.authorSurname}"/>
+                                    <div class="Label">Category</div>
+                                    <h:inputText styleClass="form-control" value="#{books.category}"/>
+                                    <div class="Label">Publisher</div>
+                                    <h:inputText styleClass="form-control" value="#{books.publisher}"/>
+                                    <div class="Label">ISBN</div>
+                                    <h:inputText styleClass="form-control" value="#{books.isbn}"/>
+                                    <div class="Label">Price(PLN)</div>
+                                    <h:inputText styleClass="form-control" value="#{books.price}"/>
+                                    <div class="Label">Pages</div>
+                                    <h:inputText styleClass="form-control" value="#{books.pages}"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:commandButton styleClass="btn btn-md btn-success" value="Add new" action="#{books.create()}"/>
+                                </div>
+                            </h:form>
+                        </div>
                     </div>
-                </h:form>
+                </div>
             </div>
         </div>
     </div>
