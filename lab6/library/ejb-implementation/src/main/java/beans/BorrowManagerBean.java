@@ -8,7 +8,6 @@ import interfaces.remote.RemoteBorrowManager;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.util.List;
-import java.util.Optional;
 
 @Stateless
 @Remote(RemoteBorrowManager.class)
@@ -30,9 +29,7 @@ public class BorrowManagerBean implements RemoteBorrowManager {
     }
 
     @Override
-    public Optional<Integer> addBorrow(BorrowDTO borrow) {
-        return Optional.empty();
-    }
+    public void addBorrow(BorrowDTO borrow) { }
 
     @Override
     public void removeBorrow(BorrowDTO borrow) {

@@ -6,7 +6,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
 
 public class UserDAO {
     private static UserDAO instance;
@@ -49,16 +48,10 @@ public class UserDAO {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Optional<Integer> createItem(UserDTO item) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(item);
-            entityManager.getTransaction().commit();
-            return Optional.of(item.getId());
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            return Optional.empty();
-        }
+    public void createItem(UserDTO item) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(item);
+        entityManager.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)

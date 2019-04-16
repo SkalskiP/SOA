@@ -6,7 +6,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
 
 public class BookDAO {
     private static BookDAO instance;
