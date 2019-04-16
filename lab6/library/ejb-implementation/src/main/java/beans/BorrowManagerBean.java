@@ -29,7 +29,10 @@ public class BorrowManagerBean implements RemoteBorrowManager {
     }
 
     @Override
-    public void addBorrow(BorrowDTO borrow) { }
+    public void addBorrow(BorrowDTO borrow) {
+        System.out.println("BorrowManagerBean.addBorrow");
+        BorrowDAO.getInstance().createItem(borrow);
+    }
 
     @Override
     public void removeBorrow(BorrowDTO borrow) {

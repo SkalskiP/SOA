@@ -41,6 +41,14 @@ public class BorrowDAO {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void createItem(BorrowDTO item) {
+        System.out.println("BorrowDAO.createItem");
+        entityManager.getTransaction().begin();
+        entityManager.persist(item);
+        entityManager.getTransaction().commit();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteItem(BorrowDTO item) {
         entityManager.getTransaction().begin();
         entityManager.remove(entityManager.contains(item) ? item : entityManager.merge(item));

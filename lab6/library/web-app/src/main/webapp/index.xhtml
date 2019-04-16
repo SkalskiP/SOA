@@ -211,96 +211,131 @@
         </div>
         <div class="NavBar">
             <div class="NavBarGroup">
-                <h:form id="create-new-button">
-                    <c:choose>
-                        <c:when test='#{GeneralController.currentSelection == "Manage books"}'>
-                            <button type="button" class="btn btn-md btn-success my-2 my-sm-0" data-toggle="modal" data-target="#bookModal">
-                                Add new
-                            </button>
-                            <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Add book</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                x
-                                            </button>
-                                        </div>
-                                        <h:form>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <div class="Label">Title</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.title}"/>
-                                                    <div class="Label">Author Name</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.authorName}"/>
-                                                    <div class="Label">Author Name</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.authorSurname}"/>
-                                                    <div class="Label">Category</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.category}"/>
-                                                    <div class="Label">Publisher</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.publisher}"/>
-                                                    <div class="Label">ISBN</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.isbn}"/>
-                                                    <div class="Label">Price</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.price}"/>
-                                                    <div class="Label">Pages</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.pages}"/>
-                                                    <div class="Label">Count</div>
-                                                    <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.count}"/>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <h:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{BooksController.addBook}"/>
-                                            </div>
-                                        </h:form>
+                <c:choose>
+                    <c:when test='#{GeneralController.currentSelection == "Manage books"}'>
+                        <button type="button" class="btn btn-md btn-success my-2 my-sm-0" data-toggle="modal" data-target="#bookModal">
+                            Add new
+                        </button>
+                        <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add book</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            x
+                                        </button>
                                     </div>
+                                    <h:form>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="Label">Title</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.title}"/>
+                                                <div class="Label">Author Name</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.authorName}"/>
+                                                <div class="Label">Author Name</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.authorSurname}"/>
+                                                <div class="Label">Category</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.category}"/>
+                                                <div class="Label">Publisher</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.publisher}"/>
+                                                <div class="Label">ISBN</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.isbn}"/>
+                                                <div class="Label">Price</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.price}"/>
+                                                <div class="Label">Pages</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.pages}"/>
+                                                <div class="Label">Count</div>
+                                                <h:inputText styleClass="form-control" value="#{BooksController.bookDataHolder.count}"/>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <h:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{BooksController.addBook}"/>
+                                        </div>
+                                    </h:form>
                                 </div>
                             </div>
-                        </c:when>
-                        <c:when test='#{GeneralController.currentSelection == "Manage users"}'>
-                            <button type="button" class="btn btn-md btn-success my-2 my-sm-0" data-toggle="modal" data-target="#userModal">
-                                Add new
-                            </button>
-                            <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Add user</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                x
-                                            </button>
-                                        </div>
-                                        <h:form>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <div class="Label">First Name</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.firstName}"/>
-                                                    <div class="Label">Last Name</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.lastName}"/>
-                                                    <div class="Label">Gender</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.gender}"/>
-                                                    <div class="Label">Email</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.email}"/>
-                                                    <div class="Label">Phone</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.phoneNumber}"/>
-                                                    <div class="Label">City</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.city}"/>
-                                                    <div class="Label">Street Name</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.streetName}"/>
-                                                    <div class="Label">Street Number</div>
-                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.streetNumber}"/>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <h:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{UsersController.addUser}"/>
-                                            </div>
-                                        </h:form>
+                        </div>
+                    </c:when>
+                    <c:when test='#{GeneralController.currentSelection == "Manage users"}'>
+                        <button type="button" class="btn btn-md btn-success my-2 my-sm-0" data-toggle="modal" data-target="#userModal">
+                            Add new
+                        </button>
+                        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add user</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            x
+                                        </button>
                                     </div>
+                                    <h:form>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="Label">First Name</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.firstName}"/>
+                                                <div class="Label">Last Name</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.lastName}"/>
+                                                <div class="Label">Gender</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.gender}"/>
+                                                <div class="Label">Email</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.email}"/>
+                                                <div class="Label">Phone</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.phoneNumber}"/>
+                                                <div class="Label">City</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.city}"/>
+                                                <div class="Label">Street Name</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.streetName}"/>
+                                                <div class="Label">Street Number</div>
+                                                <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.streetNumber}"/>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <h:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{UsersController.addUser}"/>
+                                        </div>
+                                    </h:form>
                                 </div>
                             </div>
-                        </c:when>
-                    </c:choose>
-                </h:form>
+                        </div>
+                    </c:when>
+                    <c:when test='#{GeneralController.currentSelection == "Manage borrows"}'>
+                        <button type="button" class="btn btn-md btn-success my-2 my-sm-0" data-toggle="modal" data-target="#borrowModal">
+                            Create borrow
+                        </button>
+                        <div class="modal fade" id="borrowModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Create borrow</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            x
+                                        </button>
+                                    </div>
+                                    <h:form>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="Label">Book</div>
+                                                <h:selectOneMenu styleClass="form-control mr-sm-2" value="#{BorrowsController.selectedBookId}">
+                                                    <f:selectItem itemValue="#{null}" itemLabel="Select book..." />
+                                                    <f:selectItems  value="#{BooksController.books}" var="book" itemValue="#{book.id}" itemLabel="#{book.toString()}"/>
+                                                </h:selectOneMenu>
+
+                                                <div class="Label">User</div>
+                                                <h:selectOneMenu styleClass="form-control mr-sm-2" value="#{BorrowsController.selectedUserId}">
+                                                    <f:selectItem itemValue="#{null}" itemLabel="Select user..." />
+                                                    <f:selectItems  value="#{UsersController.users}" var="user" itemValue="#{user.id}" itemLabel="#{user.toString()}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <p:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{BorrowsController.addBorrow}"/>
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </c:when>
+                </c:choose>
             </div>
             <div class="NavBarGroup">
                 <h:form id="admin-form">

@@ -28,6 +28,12 @@ public class BorrowDTO implements Serializable {
 
     public BorrowDTO() {}
 
+    public BorrowDTO(BookDTO book, UserDTO user) {
+        this.book = book;
+        this.user = user;
+        this.borrowStartDate = new Date();
+    }
+
     public Integer getId() {
         return id;
     }

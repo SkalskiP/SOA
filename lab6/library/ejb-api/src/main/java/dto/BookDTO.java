@@ -124,6 +124,6 @@ public class BookDTO implements Serializable {
 
     @Override
     public String toString() {
-        return this.authorName + " " + this.authorSurname + " " + this.title + " " + this.category + " " + this.price;
+        return this.title + " - " + this.authorName + " " + this.authorSurname;
     }
 }
