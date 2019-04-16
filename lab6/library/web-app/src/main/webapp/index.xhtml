@@ -221,7 +221,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Add book</h5>
+                                            <h5 class="modal-title">Add book</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 x
                                             </button>
@@ -251,6 +251,48 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <h:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{BooksController.addBook}"/>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:when test='#{GeneralController.currentSelection == "Manage users"}'>
+                            <button type="button" class="btn btn-md btn-success my-2 my-sm-0" data-toggle="modal" data-target="#userModal">
+                                Add new
+                            </button>
+                            <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Add user</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <h:form>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <div class="Label">First Name</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.firstName}"/>
+                                                    <div class="Label">Last Name</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.lastName}"/>
+                                                    <div class="Label">Gender</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.gender}"/>
+                                                    <div class="Label">Email</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.email}"/>
+                                                    <div class="Label">Phone</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.phoneNumber}"/>
+                                                    <div class="Label">City</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.city}"/>
+                                                    <div class="Label">Street Name</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.streetName}"/>
+                                                    <div class="Label">Street Number</div>
+                                                    <h:inputText styleClass="form-control" value="#{UsersController.userDataHolder.streetNumber}"/>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <h:commandButton styleClass="btn btn-md btn-success my-2 my-sm-0" value="Save" action="#{UsersController.addUser}"/>
                                             </div>
                                         </h:form>
                                     </div>

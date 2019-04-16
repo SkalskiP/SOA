@@ -23,7 +23,6 @@ public class BooksController implements Serializable {
     }
 
     public void deleteBook(Integer bookId) {
-        System.out.println("Hello controller");
         bookManager.removeBook(bookManager.getBookById(bookId));
     }
 
@@ -36,7 +35,7 @@ public class BooksController implements Serializable {
     }
 
     public void addBook() {
-        System.out.println("Add new book");
         bookManager.addBook(bookDataHolder);
+        bookDataHolder = new BookDTO();
     }
 }

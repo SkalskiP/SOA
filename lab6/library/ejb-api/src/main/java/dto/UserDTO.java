@@ -31,6 +31,9 @@ public class UserDTO implements Serializable {
     @Column(name = "city", nullable = false)
     private String city;
 
+    @Column(name = "street_name", nullable = false)
+    private String streetName;
+
     @Column(name = "street_number", nullable = false)
     private Integer streetNumber;
 
@@ -98,6 +101,14 @@ public class UserDTO implements Serializable {
 
     public void setStreetNumber(Integer streetNumber) {
         this.streetNumber = streetNumber;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
     @Override
