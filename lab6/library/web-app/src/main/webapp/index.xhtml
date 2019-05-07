@@ -202,7 +202,96 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                CONTENT
+                                <c:choose>
+                                    <c:when test='#{GeneralController.currentSelection == "Borrow new"}'>
+                                        <h:dataTable styleClass="table table-striped BookTable" id="user-borrow-new" value="#{BooksController.books}" var="book">
+                                            <h:column>
+                                                <f:facet name="header">Number</f:facet>
+                                                #{book.id}.
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Title</f:facet>
+                                                #{book.title}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Author Name</f:facet>
+                                                #{book.authorName}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Author Surname</f:facet>
+                                                #{book.authorSurname}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Category</f:facet>
+                                                #{book.category}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Price</f:facet>
+                                                #{book.price}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">ISBN</f:facet>
+                                                #{book.isbn}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Pages</f:facet>
+                                                #{book.pages}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header"> </f:facet>
+                                                <h:form>
+                                                    <h:commandButton  value="Borrow it" styleClass="btn btn-success btn-sm" action="#{GeneralController.addBorrowForSelectedUser(book.id)}">
+                                                        <f:ajax event="click" render="@all"/>
+                                                    </h:commandButton>
+                                                </h:form>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </c:when>
+                                    <c:when test='#{GeneralController.currentSelection == "Your books"}'>
+                                        <h:dataTable styleClass="table table-striped BookTable" id="user-borrows-table" value="#{GeneralController.selectedUserBorrows}" var="borrow">
+                                            <h:column>
+                                                <f:facet name="header">Number</f:facet>
+                                                #{borrow.id}.
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Book Title</f:facet>
+                                                #{borrow.book.title}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Author Name</f:facet>
+                                                #{borrow.book.authorName}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Author Surname</f:facet>
+                                                #{borrow.book.authorSurname}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">User Name</f:facet>
+                                                #{borrow.user.firstName}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">User Surname</f:facet>
+                                                #{borrow.user.lastName}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Borrow Start</f:facet>
+                                                #{borrow.borrowStartDate}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Borrow End</f:facet>
+                                                #{borrow.borrowEndDate}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header"> </f:facet>
+                                                <h:form>
+                                                    <h:commandButton  value="Return" styleClass="btn btn-success btn-sm" action="#{BorrowsController.deleteBorrow(borrow.id)}">
+                                                        <f:ajax event="click" render="@all"/>
+                                                    </h:commandButton>
+                                                </h:form>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </c:when>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </c:otherwise>

@@ -2,7 +2,6 @@ package beans;
 
 import dao.BorrowDAO;
 import dto.BorrowDTO;
-import dto.UserDTO;
 import interfaces.remote.RemoteBorrowManager;
 
 import javax.ejb.Remote;
@@ -19,8 +18,8 @@ public class BorrowManagerBean implements RemoteBorrowManager {
     }
 
     @Override
-    public List<BorrowDTO> getBorrowsForUser(UserDTO user) {
-        return null;
+    public List<BorrowDTO> getBorrowsForUser(Integer userId) {
+        return BorrowDAO.getInstance().getAllBorrowsByUser(userId);
     }
 
     @Override
@@ -30,7 +29,6 @@ public class BorrowManagerBean implements RemoteBorrowManager {
 
     @Override
     public void addBorrow(BorrowDTO borrow) {
-        System.out.println("BorrowManagerBean.addBorrow");
         BorrowDAO.getInstance().createItem(borrow);
     }
 

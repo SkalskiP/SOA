@@ -5,6 +5,9 @@ import dto.BorrowDTO;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class BorrowDAO {
@@ -42,7 +45,6 @@ public class BorrowDAO {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void createItem(BorrowDTO item) {
-        System.out.println("BorrowDAO.createItem");
         entityManager.getTransaction().begin();
         entityManager.persist(item);
         entityManager.getTransaction().commit();
@@ -53,5 +55,18 @@ public class BorrowDAO {
         entityManager.getTransaction().begin();
         entityManager.remove(entityManager.contains(item) ? item : entityManager.merge(item));
         entityManager.getTransaction().commit();
+    }
+
+    public List<BorrowDTO> getAllBorrowsByUser(Integer userId) {
+        TypedQuery<BorrowDTO> typedQuery = prepareBorrowsForUserQuery(userId);
+        return typedQuery.getResultList();
+    }
+
+    private TypedQuery<BorrowDTO> prepareBorrowsForUserQuery(Integer userId) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<BorrowDTO> query = criteriaBuilder.createQuery(BorrowDTO.class);
+        Root<BorrowDTO> b = query.from(BorrowDTO.class);
+        query.select(b).where(criteriaBuilder.equal(b.get("user"), userId));
+        return entityManager.createQuery(query);
     }
 }

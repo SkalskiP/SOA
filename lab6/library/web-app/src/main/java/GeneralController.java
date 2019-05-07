@@ -1,11 +1,25 @@
+import dto.BorrowDTO;
+import interfaces.remote.RemoteBookManager;
+import interfaces.remote.RemoteBorrowManager;
+import interfaces.remote.RemoteUserManager;
+
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Named("GeneralController")
 @SessionScoped
 public class GeneralController implements Serializable {
+
+    @EJB(lookup = "java:global/ejb-implementation-1.0/BorrowManagerBean!interfaces.remote.RemoteBorrowManager")
+    private RemoteBorrowManager borrowsManager;
+    @EJB(lookup = "java:global/ejb-implementation-1.0/UserManagerBean!interfaces.remote.RemoteUserManager")
+    private RemoteUserManager userManager;
+    @EJB(lookup = "java:global/ejb-implementation-1.0/BookManagerBean!interfaces.remote.RemoteBookManager")
+    private RemoteBookManager bookManager;
 
     private Integer selectedUserId = null;
     private Boolean isAdminModeActive = true;
@@ -27,6 +41,15 @@ public class GeneralController implements Serializable {
 
     public Integer getSelectedUserId() {
         return selectedUserId;
+    }
+
+    public List<BorrowDTO> getSelectedUserBorrows() {
+        return borrowsManager.getBorrowsForUser(selectedUserId);
+    }
+
+    public void addBorrowForSelectedUser(Integer selectedBookId) {
+        BorrowDTO borrowToBeAdded = new BorrowDTO(bookManager.getBookById(selectedBookId), userManager.getUserById(selectedUserId));
+        borrowsManager.addBorrow(borrowToBeAdded);
     }
 
     public void setSelectedUserId(Integer selectedUserId) {

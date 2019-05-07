@@ -53,9 +53,6 @@ public class BorrowsController implements Serializable {
     }
 
     public void addBorrow() {
-        System.out.println("BorrowsController.addBorrow");
-        System.out.println(selectedBookId);
-        System.out.println(selectedUserId);
         BorrowDTO borrowToBeAdded = new BorrowDTO(bookManager.getBookById(selectedBookId), userManager.getUserById(selectedUserId));
         borrowsManager.addBorrow(borrowToBeAdded);
         selectedBookId = null;
