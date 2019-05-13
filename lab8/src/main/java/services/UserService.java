@@ -42,4 +42,28 @@ public class UserService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response updateUser(@PathParam("id") Integer id, UserDTO payload) {
+        try {
+            UserDTO itemToUpdate = UserDAO.getInstance().getItem(id);
+
+            if (payload.getFirstName() != null)
+                itemToUpdate.setFirstName(payload.getFirstName());
+            if (payload.getLastName() != null)
+                itemToUpdate.setLastName(payload.getLastName());
+            if (payload.getAge() != null)
+                itemToUpdate.setAge(payload.getAge());
+            if (payload.getAvatarUri() != null)
+                itemToUpdate.setAvatarUri(payload.getAvatarUri());
+
+            UserDTO updatedItem = UserDAO.getInstance().updateItem(itemToUpdate);
+            return Response.ok(updatedItem).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }

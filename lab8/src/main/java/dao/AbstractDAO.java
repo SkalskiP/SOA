@@ -47,12 +47,14 @@ public abstract class AbstractDAO<T extends AbstractDTO> {
         }
     }
 
-    public void updateItem(T item) {
+    public T updateItem(T item) {
         if (!entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().begin();
         }
         entityManager.merge(item);
         entityManager.getTransaction().commit();
+        entityManager.refresh(item);
+        return item;
     }
 
     public void deleteItem(T item) {
