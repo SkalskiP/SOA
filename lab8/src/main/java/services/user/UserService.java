@@ -1,4 +1,4 @@
-package services;
+package services.user;
 
 import dao.UserDAO;
 import dto.UserDTO;

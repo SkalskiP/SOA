@@ -1,4 +1,4 @@
-package services;
+package services.movie;
 
 import dao.MovieDAO;
 import dto.MovieDTO;
@@ -29,6 +29,19 @@ public class MovieService {
             return Response.ok(id.get()).build();
         } else {
             return Response.serverError().build();
+        }
+    }
+
+    @POST
+    @Path("/filter")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response filterMovies(MovieFilterParams payload) {
+        try {
+            List<MovieDTO> movies = MovieDAO.getInstance().filter(payload);
+            return Response.ok().entity(movies).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 

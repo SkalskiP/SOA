@@ -1,10 +1,9 @@
-package services;
+package services.collection;
 
 import dao.CollectionDAO;
 import dao.MovieDAO;
 import dao.UserDAO;
 import dto.CollectionDTO;
-import dto.CollectionParams;
 import dto.MovieDTO;
 import dto.UserDTO;
 

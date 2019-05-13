@@ -1,4 +1,4 @@
-package dto;
+package services.collection;
 
 import java.io.Serializable;
 
