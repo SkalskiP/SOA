@@ -2,12 +2,11 @@ package dao;
 
 import dto.AbstractDTO;
 
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AbstractDAO<T extends AbstractDTO> {
     private static final String PERSISTENCE_UNIT_NAME = "NetfixUnit";
@@ -35,13 +34,16 @@ public abstract class AbstractDAO<T extends AbstractDTO> {
         return (T) query.getSingleResult();
     }
 
-    public void addItem(T item) {
+    public Optional<Integer> addItem(T item) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(item);
             entityManager.getTransaction().commit();
+            entityManager.refresh(item);
+            return Optional.of(item.getId());
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            return Optional.empty();
         }
     }
 
@@ -54,7 +56,8 @@ public abstract class AbstractDAO<T extends AbstractDTO> {
     }
 
     public void deleteItem(T item) {
-        entityManager.remove(entityManager.contains(item) ? item : entityManager.merge(item));
+        entityManager.getTransaction().begin();
+        entityManager.remove(item);
         entityManager.getTransaction().commit();
     }
 

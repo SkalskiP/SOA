@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/users")
 public class UserService {
@@ -21,12 +22,24 @@ public class UserService {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public Response insertUser(UserDTO payload) {
+        payload.setId(null);
+        Optional<Integer> id = UserDAO.getInstance().addItem(payload);
+
+        if (id.isPresent()) {
+            return Response.ok(id.get()).build();
+        } else {
+            return Response.serverError().build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteUser(@PathParam("id") Integer id) {
         try {
-//            payload.setId(0);
-            UserDAO.getInstance().addItem(payload);
+            UserDAO.getInstance().deleteItem(id);
             return Response.ok().build();
         } catch (Exception e) {
-            return Response.serverError().build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 }
