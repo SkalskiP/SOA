@@ -3,9 +3,12 @@ package services.user;
 import dao.UserDAO;
 import dto.UserDTO;
 
+import javax.imageio.ImageIO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +65,23 @@ public class UserService {
 
             UserDTO updatedItem = UserDAO.getInstance().updateItem(itemToUpdate);
             return Response.ok(updatedItem).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
+    @Path("/{id}/avatar")
+    @Produces("image/png")
+    public Response getFullImage(@PathParam("id") Integer id) {
+        try {
+            UserDTO user = UserDAO.getInstance().getItem(id);
+            BufferedImage image = ImageIO.read(UserService.class.getClassLoader().getResourceAsStream(user.getAvatarUri()));
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", outputStream);
+            byte[] imageData = outputStream.toByteArray();
+            return Response.ok(imageData).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
