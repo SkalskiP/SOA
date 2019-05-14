@@ -1,5 +1,7 @@
 package services.movie;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.MovieDAO;
 import dto.MovieDTO;
 
@@ -8,15 +10,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Path("/movies")
 public class MovieService {
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getMovies() {
         List<MovieDTO> movies = MovieDAO.getInstance().getItems();
         return Response.ok().entity(movies).build();
+    }
+
+    @GET
+    @Produces("text/uri-list")
+    public String getMoviesUri() throws JsonProcessingException {
+        List<MovieDTO> movies = MovieDAO.getInstance().getItems();
+        List<String> moviesUri = movies.stream().map(MovieDTO::getUri).collect(Collectors.toList());
+        return objectMapper.writeValueAsString(moviesUri);
     }
 
     @POST
