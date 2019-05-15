@@ -1,6 +1,8 @@
 package services.user;
 
+import dao.CollectionDAO;
 import dao.UserDAO;
+import dto.CollectionDTO;
 import dto.UserDTO;
 import io.swagger.annotations.Api;
 
@@ -84,6 +86,18 @@ public class UserService {
             ImageIO.write(image, "png", outputStream);
             byte[] imageData = outputStream.toByteArray();
             return Response.ok(imageData).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
+    @Path("/{id}/collection")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getUserCollection(@PathParam("id") Integer id) {
+        try {
+            List<CollectionDTO> collection = CollectionDAO.getInstance().getAllCollectionsByUser(id);
+            return Response.ok(collection).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
