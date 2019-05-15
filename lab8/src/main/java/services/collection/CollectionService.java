@@ -6,6 +6,7 @@ import dao.UserDAO;
 import dto.CollectionDTO;
 import dto.MovieDTO;
 import dto.UserDTO;
+import io.swagger.annotations.Api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Path("/collections")
+@Api(value="/collections")
 public class CollectionService {
 
     @GET

@@ -2,6 +2,7 @@ package services.user;
 
 import dao.UserDAO;
 import dto.UserDTO;
+import io.swagger.annotations.Api;
 
 import javax.imageio.ImageIO;
 import javax.ws.rs.*;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Path("/users")
+@Api(value="/users")
 public class UserService {
 
     @GET

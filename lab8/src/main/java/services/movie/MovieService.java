@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.MovieDAO;
 import dto.MovieDTO;
+import io.swagger.annotations.Api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Path("/movies")
+@Api(value="/movies")
 public class MovieService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
