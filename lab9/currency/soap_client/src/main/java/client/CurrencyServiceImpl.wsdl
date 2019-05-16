@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CurrencyServiceImplService" targetNamespace="http://service/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service/" elementFormDefault="unqualified" targetNamespace="http://service/" version="1.0">
+
+  <xs:element name="exchangeToPLN" type="tns:exchangeToPLN"/>
+
+  <xs:element name="exchangeToPLNResponse" type="tns:exchangeToPLNResponse"/>
+
+  <xs:element name="getExchangeRateToPLN" type="tns:getExchangeRateToPLN"/>
+
+  <xs:element name="getExchangeRateToPLNResponse" type="tns:getExchangeRateToPLNResponse"/>
+
+  <xs:complexType name="getExchangeRateToPLN">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getExchangeRateToPLNResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="exchangeToPLN">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="exchangeToPLNResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getExchangeRateToPLNResponse">
+    <wsdl:part element="tns:getExchangeRateToPLNResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="exchangeToPLNResponse">
+    <wsdl:part element="tns:exchangeToPLNResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getExchangeRateToPLN">
+    <wsdl:part element="tns:getExchangeRateToPLN" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="exchangeToPLN">
+    <wsdl:part element="tns:exchangeToPLN" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CurrencyService">
+    <wsdl:operation name="getExchangeRateToPLN">
+      <wsdl:input message="tns:getExchangeRateToPLN" name="getExchangeRateToPLN">
+    </wsdl:input>
+      <wsdl:output message="tns:getExchangeRateToPLNResponse" name="getExchangeRateToPLNResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="exchangeToPLN">
+      <wsdl:input message="tns:exchangeToPLN" name="exchangeToPLN">
+    </wsdl:input>
+      <wsdl:output message="tns:exchangeToPLNResponse" name="exchangeToPLNResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CurrencyServiceImplServiceSoapBinding" type="tns:CurrencyService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getExchangeRateToPLN">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getExchangeRateToPLN">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getExchangeRateToPLNResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="exchangeToPLN">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="exchangeToPLN">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="exchangeToPLNResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CurrencyServiceImplService">
+    <wsdl:port binding="tns:CurrencyServiceImplServiceSoapBinding" name="CurrencyServiceImplPort">
+      <soap:address location="http://localhost:8080/soap_service-1/CurrencyServiceImpl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
